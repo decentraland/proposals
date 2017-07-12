@@ -9,13 +9,13 @@ To be deemed as a 'qualifying proposal' the following conditions must be met:
 ## Content Proposal Standard
 The Content Proposal Standard is a template for proposals designed to ensure that submissions have been well-reviewed and contain a sufficient number of supporting details for us to judge the quality and fit. All proposals should be structured as follows:
 
-**Tier 1**
+### **Tier 1**
 
 **Name**: the name of the proposed content
 
 **Description**: includes Unity 3D models that can currently go inside Decentraland
 
-**Tier 2**
+### **Tier 2**
 
 **Name**: the name of the proposed content
 
