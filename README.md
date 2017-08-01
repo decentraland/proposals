@@ -6,7 +6,7 @@ To be deemed as a 'qualifying proposal' the following conditions must be met:
 * The proposal was submitted as an issue in the [decentraland/proposals](https://github.com/decentraland/proposals) repository
 * The proposed content adheres to the [Content Proposal Standard template](#content-proposal-standard)
 
-* Please include your Slack username so we can contact you back *
+** Please include your Slack username so we can contact you back **
 
 ## Content Proposal Standard
 The Content Proposal Standard is a template for proposals designed to ensure that submissions have been well-reviewed and contain a sufficient number of supporting details for us to judge the quality and fit. All proposals should be structured as follows:
