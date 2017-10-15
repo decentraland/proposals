@@ -1,0 +1,196 @@
+<pre>
+  DSD: 001
+  Title: Decentraland Specifications Discussion Format
+  Author: Esteban Ordano <esteban@decentraland.org>
+  Status: Active
+  Type: Process
+  Created: 2017-10-16
+</pre>
+
+=DSD001: Decentraland Specifications Discussion Format=
+
+This document describes the mechanism and policy for discussing Decentraland's ecosystem features.
+
+==What is a DSD==
+
+DSD stands for Decentraland's Specification Discussion. A DSD is a design document providing information to the Decentraland community, or describing a new feature for Decentraland's client or ecosystem, or its processes or environment. The DSD should provide a concise technical specification of a feature and a rationale for it.
+
+We intend DSDs to be the primary mechanisms for proposing major new features, for collecting community input on an issue, and for documenting the design decisions that have gone into Decentraland. The DSD author is responsible for building consensus within the community and documenting dissenting opinions.
+
+Because the DSDs are maintained as text files in a versioned repository, their revision history is the historical record of the feature proposal.
+
+==DSD Types==
+
+There are three kinds of DSDs:
+
+* A Standards Track DSD describes any new feature or change that affects most or all Decentraland implementations, such as a new way to serve content, an addition to the base LAND smart contract, different ways to interpret the content of a land parcel, or additional mechanisms to interact with in the virtual world.
+* An Informational DSD describes a Decentraland design feature, challenge, issue or event; but it does not propose a new change. These can be useful to describe and log an historical event or decision taken at some point, or call for solutions to a given problematic to the community.
+* A Process DSD describes a process surrounding Decentraland, or proposes a change to (or an event in) a process. Process DSDs are like Standards Track DSDs but apply to areas other than the Decentraland protocol itself. They may propose an implementation, but not to Decentraland's core clients or contracts; they often require community consensus; unlike Informational DSDs, they are more than recommendations, and users are typically not free to ignore them. Examples include procedures, guidelines, changes to the decision-making process, and changes to the tools or environment used in Decentraland development. Any meta-DSD is also considered a Process DSD.
+
+==DSD Workflow==
+
+===Decentraland Core Team===
+
+The Decentraland Core Team is currently the team charged with the task of building the infrastructure and procedures to build the initial Decentraland experience. Most initial DSDs are authored by them, and they are the main promoters of the process and the software.
+
+===Decentraland Proposals===
+
+During the period of mid-2017, a large number of proposals on how to shape the world were issued at the open source repository https://github.com/decentraland/proposals. These early versions of DSDs contain a number of interesting features, and the community is encouraged to turn them into this new format, for better processing and discussion of the features discussed.
+
+===Submitting a Proposal===
+
+The DSD process begins with a new idea for Decentraland. Each potential DSD must have a champion -- someone who writes the DSD using the style and format described below, shepherds the discussions in the appropriate forums, and attempts to build community consensus around the idea. The DSD champion (a.k.a. Author) should first attempt to ascertain whether the idea is DSD-able. Posting an issue to the (GitHub DSD repository)[https://github.com/decentraland/dsd] is the best way to go about this.
+
+Once the champion has asked the Decentraland community as to whether an idea has any chance of acceptance, a draft DSD should be presented as a pull request to that repository. This gives the author a chance to flesh out the draft DSD to make it properly formatted, of high quality, and to address additional concerns about the proposal. Following a discussion, mention one of the DSD editors to review the DSD draft and accept the pull request. This draft must be written in DSD style as described below, else it will be rejected without further regard until proper formatting rules are followed.
+
+DSD authors are responsible for collecting community feedback on both the initial idea and the DSD before submitting it for review. However, wherever possible, long open-ended discussions on chat or public forums should be avoided. Strategies to keep the discussions efficient include: setting up a channel within the chat server for the topic, having the DSD author accept private comments in the early design phases, setting up a wiki page, etc. DSD authors should use their discretion here.
+
+It is highly recommended that a single DSD contain a single key proposal or new idea. The more focused the DSD, the more successful it tends to be. If in doubt, split your DSD into several well-focused ones.
+
+The DSD editors assign DSD numbers and change their status. Please send all DSD-related email to the DSD editor, which is listed under [[#DSD|DSD Editors]] below. Also see [[#DSD|DSD Editor Responsibilities & Workflow]]. The DSD editor reserves the right to reject DSD proposals if they appear too unfocused or too broad.
+
+Authors MUST NOT self assign DSD numbers, but should use an alias such as "dsd-johndoe-newavatars" which includes the author's name/nick and the DSD subject.
+
+If the DSD editor approves, he will assign the DSD a number, label it as Standards Track, Informational, or Process, give it status "Draft", and merge it to the main branch of the DSD git repository. The DSD editor will not unreasonably deny a DSD. Reasons for denying DSD status include duplication of effort, disregard for formatting rules, being too unfocused or too broad, being technically unsound, not providing proper motivation or addressing backwards compatibility, or contrarial to the Decentraland philosophy. For a DSD to be accepted it must meet certain minimum criteria. It must be a clear and complete description of the proposed enhancement. The enhancement must represent a net improvement. The proposed implementation, if applicable, must be solid and must not complicate the protocol unduly.
+
+The DSD author may update the Draft as necessary in the git repository. Updates to drafts may also be submitted by the author as pull requests.
+
+Standards Track DSD consist of two parts, a design document and a reference implementation. The DSD should be reviewed and accepted before a reference implementation is begun, unless a reference implementation will aid people in studying the DSD. Standards Track DSD must include an implementation -- in the form of code, a patch, or a URL to same -- before it can be considered Final.
+
+Once a DSD has been accepted, the reference implementation must be completed. When the reference implementation is complete and accepted by the community, the status will be changed to "Final".
+
+A DSD can also be assigned status "Deferred". The DSD author or editor can assign the DSD this status when no progress is being made on the DSD. Once a DSD is deferred, the DSD editor can re-assign it to draft status.
+
+A DSD can also be "Rejected". Perhaps after all is said and done it was not a good idea. It is still important to have a record of this fact.
+
+DSD can also be superseded by a different DSD, rendering the original obsolete. This is intended for Informational DSD, where version 2 of an API can replace version 1.
+
+The possible paths of the status of DSD are as follows:
+
+<img src=dsd-001/process.png></img>
+
+Some Informational and Process DSD may also have a status of "Active" if they are never meant to be completed. E.g. DSD 1 (this DSD).
+
+==What belongs in a successful DSD?==
+
+Each DSD should have the following parts:
+
+* Preamble -- RFC 822 style headers containing meta-data about the DSD, including the DSD number, a short descriptive title (limited to a maximum of 44 characters), the names, and optionally the contact info for each author, etc.
+
+* Abstract -- a short (~200 word) description of the technical issue being addressed.
+
+* Copyright/public domain -- Each DSD must either be explicitly labelled as placed in the public domain (see this DSD as an example) or licensed under the Open Publication License.
+
+* Specification -- The technical specification should describe the syntax and semantics of any new feature. The specification should be detailed enough to allow competing, interoperable implementations for any of the current Decentraland platforms (Satoshi, DecentralandJ, bitcoin-js, libbitcoin).
+
+* Motivation -- The motivation is critical for DSD that want to change the Decentraland protocol. It should clearly explain why the existing protocol specification is inadequate to address the problem that the DSD solves. DSD submissions without sufficient motivation may be rejected outright.
+
+* Rationale -- The rationale fleshes out the specification by describing what motivated the design and why particular design decisions were made. It should describe alternate designs that were considered and related work, e.g. how the feature is supported in other languages.
+
+* The rationale should provide evidence of consensus within the community and discuss important objections or concerns raised during discussion.
+
+* Backwards Compatibility -- All DSD that introduce backwards incompatibilities must include a section describing these incompatibilities and their severity. The DSD must explain how the author proposes to deal with these incompatibilities. DSD submissions without a sufficient backwards compatibility treatise may be rejected outright.
+
+* Reference Implementation -- The reference implementation must be completed before any DSD is given status "Final", but it need not be completed before the DSD is accepted. It is better to finish the specification and rationale first and reach consensus on it before writing code.
+
+* The final implementation must include test code and documentation appropriate for the Decentraland protocol.
+
+==DSD Formats and Templates==
+
+DSD should be written in mediawiki or markdown format.
+
+===DSD Header Preamble===
+
+Each DSD must begin with an RFC 822 style header preamble. The headers must appear in the following order. Headers marked with "#" are optional and are described below. All other headers are required.
+
+<pre>
+  DSD: <DSD number>
+  Title: <DSD title>
+  Author: <list of authors names and optionally, email addresses>
+# Discussions-To: <email address>
+  Status: <Draft | Active | Accepted | Deferred | Rejected |
+           Withdrawn | Final | Superseded>
+  Type: <Standards Track | Informational | Process>
+  Created: <date created on, in ISO 8601 (yyyy-mm-dd) format>
+# Replaces: <DSD number>
+# Superseded-By: <DSD number>
+# Resolution: <url>
+</pre>
+
+The Author header lists the names, and optionally the email addresses of all the authors/owners of the DSD. The format of the Author header value must be
+
+  Random J. User <address@dom.ain>
+
+if the email address is included, and just
+
+  Random J. User
+
+if the address is not given.
+
+If there are multiple authors, each should be on a separate line following RFC 2822 continuation line conventions.
+
+Note: The Resolution header is required for Standards Track DSD only. It contains a URL that should point to an email message or other web resource where the pronouncement about the DSD is made.
+
+While a DSD is in private discussions (usually during the initial Draft phase), a Discussions-To header will indicate a chatroom, forum thread, or URL where the DSD is being discussed. No Discussions-To header is necessary if the DSD is being discussed privately with the author, or on Decentraland's chat.
+
+The Type header specifies the type of DSD: Standards Track, Informational, or Process.
+
+The Created header records the date that the DSD was assigned a number, while Post-History is used to record the dates of when new versions of the DSD are posted to the Decentraland GitHub's issue tracker. Both headers should be in yyyy-mm-dd format, e.g. 2001-08-14.
+
+DSD may have a Requires header, indicating the DSD numbers that this DSD depends on.
+
+DSD may also have a Superseded-By header indicating that a DSD has been rendered obsolete by a later document; the value is the number of the DSD that replaces the current document. The newer DSD must have a Replaces header containing the number of the DSD that it rendered obsolete.
+
+===Auxiliary Files===
+
+DSD may include auxiliary files such as diagrams. Image files should be included in a subdirectory for that DSD. Auxiliary files must be named DSD-XXXX-Y.ext, where "XXXX" is the DSD number, "Y" is a serial number (starting at 1), and "ext" is replaced by the actual file extension (e.g. "png").
+
+==Transferring DSD Ownership==
+
+It occasionally becomes necessary to transfer ownership of DSD to a new champion. In general, we'd like to retain the original author as a co-author of the transferred DSD, but that's really up to the original author. A good reason to transfer ownership is because the original author no longer has the time or interest in updating it or following through with the DSD process, or has fallen off the face of the 'net (i.e. is unreachable or not responding to email). A bad reason to transfer ownership is because you don't agree with the direction of the DSD. We try to build consensus around a DSD, but if that's not possible, you can always submit a competing DSD.
+
+If you are interested in assuming ownership of a DSD, send a message asking to take over, addressed to both the original author and the DSD editor. If the original author doesn't respond to email in a timely manner, the DSD editor will make a unilateral decision (it's not like such decisions can't be reversed :).
+
+==DSD Editors==
+
+The current DSD editor is Esteban Ordano who can be contacted at [[mailto:dsdeditor@decentraland.org|dsdeditor@decentraland.org]].
+
+==DSD Editor Responsibilities & Workflow==
+
+The DSD editor wathes the DSD repository on GitHub. All DSD-related correspondence should be sent (or CC'd) to dsdeditor@decentraland.org.
+
+For each new DSD that comes in an editor does the following:
+
+* Read the DSD to check if it is ready: sound and complete. The ideas must make technical sense, even if they don't seem likely to be accepted.
+* The title should accurately describe the content.
+* Edit the DSD for language (spelling, grammar, sentence structure, etc.), markup (for reST DSD), code style (examples should match DSD 8 & 7).
+
+If the DSD isn't ready, the editor will send it back to the author for revision, with specific instructions.
+
+Once the DSD is ready for the repository it should be submitted as a "pull request" to the [https://github.com/decentraland/dsds bitcoin/dsds] repository on GitHub where it may get further feedback.
+
+The DSD editor will:
+
+* Assign a DSD number (the next available number, or maybe some number grouped together with similar DSDs, but sometimes a special/joke number, like 1337) in the pull request comments.
+
+* Merge the pull request when the author is ready (allowing some time for further peer review).
+
+* List the DSD in [[README.mediawiki]]
+
+* Send email back to the DSD author with next steps.
+
+The DSD editors are intended to fulfill administrative and editorial responsibilities. The DSD editors monitor DSD changes, and correct any structure, grammar, spelling, or markup mistakes we see.
+
+## History
+
+This document is heavily based on Python's PEP 001 and Bitcoin's BIP 001.
+
+References to similar processes:
+
+* https://www.python.org/dev/peps/
+* https://github.com/bitcoin/bips/blob/master/bip-0001.mediawiki
+* https://www.ietf.org/rfc.html
+
+## Changelog
+
+October 16th, 2017: Initial version
