@@ -23,16 +23,107 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 
 The manifest file format is JSON, following a particular [json-schema.org JSON Schema] containing the resources needed to display the scene. The goals of this file are:
 
-* Describing the scene: From this file, the Decentraland clients must be able to give some basic information about the parcels. This information includes, but is not limited to,
+* Describing the scene: From this file, the Decentraland clients must be able to give some basic information about the parcels. This information may include the name the owner wants to give to the parcel, the coordinates and Ethereum address that owns the parcel.
+* Listing and downloading assets: Allow the client to fetch all assets that are needed to render the scene. This includes 3d models, textures, sounds, and scripts.
+* Support scenes comprising multiple parcels: Define a simple way too allow multiple parcels to show the same scene. This allows for better performance and the usability of editors improve if they don't have to chunk scenes.
+* Enable P2P Communications: Describe how to communicate with other users that are in the same location.
+* Providing information: As Decentraland is a social experience, it's good to have some means to contact the owner of the parcel.
+* Signal about the contents of the parcel: Allow land owners to specify to Decentraland clients the suitable audiences for this parcel, for example, to prevent mature content from being displayed to a younger audience. This is not going to be the only effort to policy content.
+* Signal restrictions to client resources: allow a land owner to prevent users from using voice chat, flying, or restrict other features from being enabled in the parcel. Even if clients can be modified to not follow these policies, it might be desirable to provide control over the users' experience to the land owner.
 
-===Assets===
+A JSON schema to validate land parcels, with a detailed description of each field follows:
 
-One of
-
-A JSON schema for the land parcel format follows:
-
-```
-```
+<pre>
+{
+  "id": "https://github.com/decentraland/proposals/",
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "description": "Schema for a land parcel description",
+  "type": "object",
+  "required": [ "assets", "owner", "main", "display" ],
+  "properties": {
+    "assets": {
+      "type": "object",
+      "description": "Mapping a unique name to the assets that the scene needs. The values of this object can be prefetched by the Decentraland client before the user actually enters the parcel. Referencing one of these assets is needed for the \"main\" root property."
+    },
+    "owner": {
+      "type": "string",
+      "description": "Ethereum address of the owner of the parcel",
+      "pattern": "0x[0-9a-fA-F]{40}"
+    },
+    "contact": {
+      "type": "object",
+      "description": "Describe different ways of contacting the land owner",
+      "additionalProperties": true,
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Given name for the parcel owner"
+        },
+        "email": "string",
+        "im": "string",
+        "url": "string"
+      }
+    },
+    "main" {
+      "type": "string",
+      "description": "Key in the `assets` root property that contains the a-frame/a-minus content of the main scene"
+    },
+    "scene": {
+      "type": "object",
+      "description": "Describes a scene, a set of parcels whose content is treated as the same entity. A list of parcels is listed, for which one of them is considered the \"base\" for positioning purposes.",
+      "properties": {
+        "base": { "$ref": "#coordinates" },
+        "parcels": {
+          "type": "array",
+          "items": { "$ref": "#coordinates" }
+        }
+      }
+    },
+    "communications": {
+      "type": "object",
+      "description": "Describes the protocol and URL to use to connect to other users in the same land",
+      "properties": {
+        "protocol": {
+          "type": "string",
+          "description": "A unique identifier of the protocol used to establish communications with other users"
+        },
+        "location": {
+          "type": "string",
+          "description": "URL or another means to find other peers"
+        }
+      }
+    },
+    "policy": {
+      "type": "object",
+      "description": "Allow the land owner to set up different hints on what the experience in his land should be"
+    },
+    "display": {
+      "type": "object",
+      "description": "Information related to how should this land be displayed apart from the normal rendering of the scene",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "A name so other users can identify what the contents of this land should be"
+        },
+        "favicon": {
+          "type": "string",
+          "optional": true,
+          "description": "Allow the land owner to set up a favicon to this land"
+        }
+      },
+      "additionalProperties": true
+    }
+  },
+  "definitions": {
+    "coordinates": {
+      "$id": "#coordinates",
+      "type": "string",
+      "description": "A (x, y) coordinate",
+      "pattern": "^-?[0-9]+,-?[0-9]+$"
+    }
+  }
+}
+</pre>
 
 Example of a land parcel description:
 
@@ -57,8 +148,6 @@ Example of a land parcel description:
 
   "main": "scene",
 
-  "position": "2,2",
-
   "scene": {
     "base": "2,2",
     "parcels": [
@@ -80,6 +169,8 @@ Example of a land parcel description:
     "blacklist": ["0,0", "1,0", "1,1", "1,1"],
     "teleportPosition": "0.5,1.4,23.12"
   },
+
+  "tags": ["land", "decentraland", "parcel"],
 
   "display": {
     "title": "My Land",
