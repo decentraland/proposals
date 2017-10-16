@@ -1,5 +1,5 @@
 <pre>
-  DSD: 0020
+  DSP: 0020
   Title: Parcel Manifest Format
   Author: Esteban Ordano <esteban@decentraland.org>
   Status: Draft
