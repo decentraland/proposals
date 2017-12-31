@@ -1,0 +1,32 @@
+<pre>
+  DSP: dsd-chainomics-unclaimedparcels
+  Title: Unclaimed Parcel Allocation Process
+  Author: Fabian Schär <f.schaer@unibas.ch>
+  Status: Draft
+  Type: Process
+  Created: 2017-12-31
+</pre>
+
+==Abstract==
+
+Around 30,000 parcels did not sell during the Terraform auction. Originally, unclaimed parcels were to be sold for 1,000 mana each. However, this process could have undesirable consequences. Given recent prices, it can be assumed that we would see a race in which very few people would profit immensely. This proposal describes an alternative process for allocating the unclaimed parcels.
+
+==Specification==
+
+The unclaimed parcels are auctioned off via a Dutch auction. At the start of the auction, the price of each unclaimed parcel will be set to x. The prices then linearly decrease over time until a price of 0 is reached. More formally, the current price can be expressed by the following equation:
+
+P_t = max[0, x - t * (x/T) ], where P_t is the current price for period t, T is the duration of the auction, and t is the current time period. 
+
+Each parcel will be treated as a separate offer. Offers run in parallel. The person who first accepts an offer for a particular parcel, i. e. creates a transaction including at least the current price in mana, receives that parcel. If two transactions for the same parcel are processed with the same block, the transaction with the higher bid will be given priority.
+
+In order to prevent outbidding by gas price, the process could be implemented using a two-step hash and reveal approach. However, it has to be evaluated if this additional step outweighs potential drawbacks. 
+
+Key Advantages:
+* Efficient allocation considering highest willingness to pay.
+* Process reflects the parcel's non-fungible nature.
+* Offers refer to specific parcel. The buyer knows what he's getting.
+* Auction ends after T.
+
+==Copyright==
+
+This document is under the public domain.
