@@ -9,23 +9,80 @@
 
 ==Abstract==
 
-Around 30,000 parcels did not sell during the Terraform auction. Originally, unclaimed parcels were to be sold for 1,000 mana each. However, this process could have undesirable consequences. Given recent prices, it can be assumed that we would see a race in which very few people would profit immensely. This proposal describes an alternative process for allocating the unclaimed parcels.
+9,331 parcels did not sell during the Terraform auction. Originally, unclaimed parcels were to be sold for 1,000 mana each. However, this process could have undesirable consequences. Given recent price developments, it can be assumed that we would see a race in which very few people would profit immensely. Moreover, it would likely lead to a proxy bidding war in the form of escalating gas prices. This proposal describes an alternative process for allocating unclaimed parcels.
 
 ==Specification==
 
-The unclaimed parcels are auctioned off via a Dutch auction. At the start of the auction, the price of each unclaimed parcel will be set to x. The prices then linearly decrease over time until a price of 0 is reached. More formally, the current price can be expressed by the following equation:
+Unclaimed parcels are auctioned off via a Dutch auction. At the start of the auction, the price of each unclaimed parcel will be set to S. The prices then decrease over time until a price of 0 is reached. More formally, the current price can be expressed by the following equation:
 
-P_t = max[0, x - t * (x/T) ], where P_t is the current price for period t, T is the duration of the auction, and t is the current time period. 
+```
+P[t] = max(0, S - t * (S/T)) 
+```
+where P[t] is the current price for period t, T is the duration of the auction, and t is the current auction time period. 
 
 Each parcel will be treated as a separate offer. Offers run in parallel. The person who first accepts an offer for a particular parcel, i. e. creates a transaction including at least the current price in mana, receives that parcel. If two transactions for the same parcel are processed with the same block, the transaction with the higher bid will be given priority.
 
-In order to prevent outbidding by gas price, the process could be implemented using a two-step hash and reveal approach. However, it has to be evaluated if this additional step outweighs potential drawbacks. 
+A hash and reveal scheme prevents a potential attacker from spying on someone else's bids and use a higher gas price to snipe the auction. The scheme consists of two steps.
 
-Key Advantages:
+===1. Hash Step===
+
+The user picks the parcels and corresponding prices locally. Additionally, the client provides a random number to be used as salt. 
+
+* `uint[] x`: array with x-coordinates of parcels, which the individual would like to buy.
+
+* `uint[] y`: array with y-coordinates of parcels, which the individual would like to buy.
+
+* `uint[] price`: array with a bid for each pair in the parcel arrays. Usually the prices should not vary and be given by the auction. However, users may have an incentive to slightly increase these values due to the tie-breaker condition (see reveal step).
+
+* `bytes salt`: random variable which is needed to secure the hash and reveal process.
+
+The user does not disclose any parameters in this step. Instead, the information gets concatenated, hashed and the resulting hash value revealed to the network through a reserve transaction.
+
+The reserve transaction includes the following input parameters:
+* `uint256 mana`: Shadow amount which is used to cloak the parcels and price vector in the transaction. Needs to satisfy the condition: mana >= parcels * price.
+* `bytes32 hashMessage`: Hash value of x, y, price and salt. 
+
+===2. Reveal Step===
+
+The individual can claim the land by revealing the components of the reserve transaction, i.e. the bid parameters `x`, `y`, `price` and `salt`. A grace period between the hash and the reveal step prevents a potential attacker from spying on someone else's bid and potentially making use of blockchain reorgs.  
+
+A reveal transaction is considered valid if:
+* `sender[hashMessage] == msg.sender`
+* `hashMessage == concatenateAndHash(x, y, price, salt)` 
+* `shadowAmount[hashMessage] > price[revealMessage] * numberOfParcels[revealMessage]`
+* `block.height > reserveReceivedAt[hashMessage] + gracePeriod()`
+
+
+The first user to present a valid reveal transaction for a (set of) parcel(s) will get assigned ownership. If two or more reveal transactions for a parcel are included in the same block, the price acts as a tie breaker.
+
+Funds from unsuccesful reveals will be returned to the sender's address. There is no need for an additional penalty, since a potential attacker spaming reserve transaction without revealing them, would face massive opportunity costs.
+
+If a user cannot or is not willing to present a valid reveal transaction, the corresponding shadow amount will be locked up until the end of the auction. Remaining funds will then be returned to the sender's address.
+
+==Key Advantages==
+The dutch auction has several advantages including:
 * Efficient allocation considering highest willingness to pay.
-* Process reflects the parcel's non-fungible nature.
-* Offers refer to specific parcel. The buyer knows what he's getting.
+* Process reflects the parcel's non-fungible nature. Offers refer to specific parcels. 
 * Auction ends after T.
+
+==Parameter Suggestions==
+
+The starting value S cannot be too large, as this would unnecessarily prolong the auction. On the other hand, it must not be below people's willingness to pay as this could potentially lead to a socially undesirable allocation of parcels. 
+
+We therefore suggest a relatively large starting value for S, with a convex price decay function. We split the process in three intervals using splines, defined by the following points.
+
+* `P[t == 0] := 250,000`
+* `P[t == T/3] := 25,000`
+* `P[t == 2T/3] := 2,500`
+* `P[t == T] := 0`
+
+Setting S initially to 250,000 is sufficient. Less than 0.1% of the parcels sold during the terraform auction have received bids above 250,000.
+
+We recommend setting T to 9 days, which corresponds to 3 days for each interval. Moreover, we suggest a grace period of 100 blocks. 
+
+==Acknowledgements==
+
+Thanks to @eordano for his valuable inputs and feedback. 
 
 ==Copyright==
 
