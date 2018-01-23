@@ -56,7 +56,7 @@ A reveal transaction is considered valid if:
 
 The first user to present a valid reveal transaction for a (set of) parcel(s) will be assigned ownership. If two or more reveal transactions for a parcel are included in the same block, the price acts as a tie breaker.
 
-Funds from unsuccesful reveals will be returned to the sender's address. There is no need for an additional penalty, since a potential attacker who spammed reserve transactions without revealing them, would face massive opportunity costs.
+Funds from unsuccessful reveals will be returned to the sender's address. There is no need for an additional penalty, since a potential attacker who spammed reserve transactions without revealing them, would face massive opportunity costs.
 
 If a user cannot or is not willing to present a valid reveal transaction, the corresponding shadow amount will be locked up until the end of the auction. Remaining funds will then be returned to the sender's address.
 
