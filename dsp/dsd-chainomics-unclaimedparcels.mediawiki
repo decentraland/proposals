@@ -1,6 +1,6 @@
 <pre>
-  DSP: dsd-chainomics-unclaimedparcels
-  Title: Unclaimed Parcel Allocation Process
+  DSP: 40
+  Title: Terraform Second Auction
   Author: Fabian Schär <f.schaer@unibas.ch>
   Status: Draft
   Type: Process
@@ -13,7 +13,7 @@ In total, 9,331 parcels did not sell during the Terraform auction. Originally, u
 
 ==Specification==
 
-Unclaimed parcels are auctioned off via a Dutch auction. At the start of the auction, the price of each unclaimed parcel will be set to S. The prices then decrease over time until a price of 0 is reached. More formally, the current price can be expressed by the following equation:
+Unclaimed parcels shall be auctioned off using a Dutch auction mechanism. At the start of the auction, the price of each unclaimed parcel will be set to S. The prices then decrease over time until a price of 0 is reached. More formally, the current price can be expressed by the following equation:
 
 <code>
 P[t] = max(0, S - t * (S/T)) 
@@ -52,9 +52,10 @@ A reveal transaction is considered valid if:
 * <code>hashMessage == concatenateAndHash(x, y, price, salt)</code>
 * <code>shadowAmount[hashMessage] > price[revealMessage] * numberOfParcels[revealMessage]</code>
 * <code>block.height > reserveReceivedAt[hashMessage] + gracePeriod()</code>
+* <code>for each parcel: parcel.price >= minimumAuctionPrice(block.height)</code>
+* <code>for each parcel: owner[parcel.x, parcel.y] == 0</code>
 
-
-The first user to present a valid reveal transaction for a (set of) parcel(s) will be assigned ownership. If two or more reveal transactions for a parcel are included in the same block, the price acts as a tie breaker.
+The first (as represented in the blockchain's total ordering of transactions) user to present a valid reveal transaction for a set of parcels will be assigned ownership of such parcels. If two or more reveal transactions for a parcel are included in the same block, the price acts as a tie breaker. If any parcel of the set is already owned, all parcels fail to be sold, preventing frustration from an user if any of the parcels were bought previously.
 
 Funds from unsuccessful reveals will be returned to the sender's address. There is no need for an additional penalty, since a potential attacker who spammed reserve transactions without revealing them, would face massive opportunity costs.
 
