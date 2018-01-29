@@ -118,6 +118,13 @@ We recommend setting T to 9 days, which corresponds to 3 days for each interval.
 
 Moreover, we suggest a grace period of 100 blocks. 
 
+==UX Considerations==
+Users have two options: They can manually relay both transactions at the appropriate time. Alernatively, they can sign the reveal transaction right after the reserve transaction and trust that the server will relay the reveal transaction after the grace period.
+
+Moreover, we suggest an option that allows users to schedule transactions. This includes simple instructions like "buy this set of parcels at a price of 7'211 mana each". Again, this involves a certain element of trust, i.e. that the server will relay the transactions and does not disclose or use the information in the reveal transaction prematurely. Additionally, We recommend using a relatively large gas price for presigned transactions due to the uncertainty involved in the development of future gas prices.
+
+The possibility to schedule transactions mitigates potential issues with time differences and local holidays. 
+
 ==Acknowledgements==
 
 Thanks to @eordano for his valuable inputs and feedback. 
