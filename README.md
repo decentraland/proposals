@@ -19,6 +19,7 @@ protocols involved within Decentraland.
 
 * [DSP001](dsp/0001.mediawiki): The Decentraland Specifications Proposal Format
 * [DSP020](dsp/0020.mediawiki): Parcel Manifest Format
+* [DSP021](dsp/0021.md): Loading Parcel Content 
 * [DSP030](dsp/0030.md): Decentraland Scripting
 
 ### Wishlist
