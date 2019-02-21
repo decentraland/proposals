@@ -81,7 +81,7 @@ Each DSP should have the following parts:
 
 * Copyright/public domain -- Each DSP must either be explicitly labelled as placed in the public domain (see this DSP as an example) or licensed under the Open Publication License.
 
-* Specification -- The technical specification should describe the syntax and semantics of any new feature. The specification should be detailed enough to allow competing, interoperable implementations for any of the current Decentraland platforms (Satoshi, DecentralandJ, bitcoin-js, libbitcoin).
+* Specification -- The technical specification should describe the syntax and semantics of any new feature. The specification should be detailed enough to allow competing, interoperable implementations for any of the current Decentraland client implementations (BabylonJS, Unity, JanusVR)
 
 * Motivation -- The motivation is critical for DSP that want to change the Decentraland protocol. It should clearly explain why the existing protocol specification is inadequate to address the problem that the DSP solves. DSP submissions without sufficient motivation may be rejected outright.
 
@@ -163,7 +163,7 @@ For each new DSP that comes in an editor does the following:
 
 * Read the DSP to check if it is ready: sound and complete. The ideas must make technical sense, even if they don't seem likely to be accepted.
 * The title should accurately describe the content.
-* Edit the DSP for language (spelling, grammar, sentence structure, etc.), markup (for reST DSP), code style (examples should match DSP 8 & 7).
+* Edit the DSP for language (spelling, grammar, sentence structure, etc.), markup (for reST DSP), code style.
 
 If the DSP isn't ready, the editor will send it back to the author for revision, with specific instructions.
 

@@ -1,0 +1,135 @@
+<pre>
+  DSP: 0010
+  Title: LAND Smart Contract
+  Author: Esteban Ordano <esteban@decentraland.org>
+  Status: Draft
+  Type: Standards Track
+  Created: 2019-02-20
+</pre>
+
+==Abstract==
+
+Decentraland's most important digital asset is its LAND token. The world is divided into square parcels of LAND that act similarly to a domain name: the owner of a LAND can decide what to show inside the 3D experience, in very much the same way as the owner of "example.com" can decide what webpage to show when a browser connects to that domain.
+
+The LAND token exists within a EVM blockchain (currently Ethereum). Decentraland is one of the first examples of the ERC 721 "NFT" token (the standard explicitly cites Decentraland and CryptoPunks as the first projects to experiment with this idea). This document describes the structure of the LAND smart contract, and the expected behavior and functionality of interacting components.
+
+==Specification==
+
+
+===ERC721 Compatibility & Overview===
+LAND Tokens are "Non-Fungible Tokens", meaning that each one has a particular property that makes it uniquely distinguishable from other Tokens. LAND is compliant with the ERC721 Ethereum standard [1], and implements the ERC721Base interface, as well as the ERC721Enumerable interface. The signature for these two is:
+
+```
+interface ERC165 {
+    function supportsInterface(bytes4 interfaceID) external view returns (bool);
+}
+
+interface ERC721 /* is ERC165 */ {
+    event Transfer(address indexed _from, address indexed _to, uint256 indexed _tokenId);
+
+    event Approval(address indexed _owner, address indexed _approved, uint256 indexed _tokenId);
+
+    event ApprovalForAll(address indexed _owner, address indexed _operator, bool _approved);
+
+    function balanceOf(address _owner) external view returns (uint256);
+
+    function ownerOf(uint256 _tokenId) external view returns (address);
+
+    function safeTransferFrom(address _from, address _to, uint256 _tokenId, bytes data) external payable;
+
+    function safeTransferFrom(address _from, address _to, uint256 _tokenId) external payable;
+
+    function transferFrom(address _from, address _to, uint256 _tokenId) external payable;
+
+    function approve(address _approved, uint256 _tokenId) external payable;
+
+    function setApprovalForAll(address _operator, bool _approved) external;
+
+    function getApproved(uint256 _tokenId) external view returns (address);
+
+    function isApprovedForAll(address _owner, address _operator) external view returns (bool);
+}
+
+interface ERC721Enumerable /* is ERC721 */ {
+
+    function totalSupply() external view returns (uint256);
+
+    function tokenByIndex(uint256 _index) external view returns (uint256);
+
+    function tokenOfOwnerByIndex(address _owner, uint256 _index) external view returns (uint256);
+}
+```
+
+* Elaborate:
+
+- Transfer tokens
+- Setting approvals for operators
+- Enumerating tokens
+- Internal storage layout implementation
+
+===LAND Specific Properties===
+
+The LANDRegistry contract implements the following additional interface:
+
+```
+
+interface LANDRegistry {
+
+  function assignNewParcel(int x, int y, address beneficiary) external;
+  function assignMultipleParcels(int[] x, int[] y, address beneficiary) external;
+
+  function ping() external;
+  function claimDead(int x, int y) external;
+
+  function encodeTokenId(int x, int y) external pure returns (uint256);
+  function decodeTokenId(uint value) external pure returns (int, int);
+
+  function exists(int x, int y) external view returns (bool);
+  function ownerOfLand(int x, int y) external view returns (address);
+  function ownerOfLandMany(int[] x, int[] y) external view returns (address[]);
+  function landOf(address owner) external view returns (int[], int[]);
+  function landData(int x, int y) external view returns (string);
+
+  function transferLand(int x, int y, address to) external;
+  function transferManyLand(int[] x, int[] y, address to) external;
+
+  function updateLandData(int x, int y, string data) external;
+  function updateManyLandData(int[] x, int[] y, string data) external;
+
+  function setUpdateOperator(uint256 tokenId, address operator) external;
+  function isUpdateAuthorized(address operator, uint256 assetId) external view returns (bool);
+  
+  function tokenMetadata(uint256 tokenId) external view returns (string);
+  function landData(int x, int y) external view returns (string);
+  function updateLandData(int x, int y, string data) external;
+  function updateManyLandData(int x[], int y[], string data) external;
+}
+
+```
+
+* elaborate 
+
+- Deploying LAND
+- Dead Ping
+- Helper functions
+- Metadata
+- Update Operators
+
+==Rationale==
+
+Elaborate:
+
+. on similarities with DNS
+. on permissions to update and transfer
+. on rationale of the dead ping
+. Future proposals
+
+==Reference Implementation==
+
+See [2] for a reference implementation of ERC721, and [3] for the reference implementation of LAND.
+
+==Links==
+
+[1] ERC721: The Non-Fungible Token (NFT) Standard
+
+
