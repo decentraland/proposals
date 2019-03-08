@@ -9,11 +9,11 @@
 
 ==Abstract==
 
-A manifest file contains the description of the contents of a land parcel. This description contains whatever models, scripts, or resources are required to provide the in-world experience the parcel's owner intended to.
+A manifest file contains the description of the contents of a land parcel. This description contains whatever models, scripts, or resources are required to provide the in-world experience that the parcel's owner intended to give.
 
 ==Preamble==
 
-This document describes the format of documents linked to from the LAND contract. This manifest file serves as the main source of truth for what should be displayed for users in a land parcel. In varying implementations of a Decentrland client or compatible application, some aspects of this manifest might be ignored.
+This document describes the format of documents that are linked to from the LAND contract. This manifest file serves as the main source of truth for what should be displayed in a land parcel. In alternative implementations of the Decentrland client or in a compatible application, some aspects of this manifest might be ignored.
 
 The design of this manifest file is heavily inspired by the `manifest.json` standard for HTML5. It contains concepts like pre-fetching, notes about security and consistency of the experience, and considerations about allowing access and soft constraints imposed over the contents.
 
@@ -21,17 +21,16 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 
 ==Specification==
 
-The manifest file format is JSON, following a particular [json-schema.org JSON Schema] containing the resources needed to display the scene. The goals of this file are:
+The manifest file format is JSON, following a particular [json-schema.org JSON Schema] containing the resources needed to display the scene. The goals of this file are to:
 
-* Describing the scene: From this file, the Decentraland clients must be able to give some basic information about the parcels. This information may include the name the owner wants to give to the parcel, the coordinates and Ethereum address that owns the parcel.
-* Listing and downloading assets: Allow the client to fetch all assets that are needed to render the scene. This includes 3d models, textures, sounds, and scripts.
-* Support scenes comprising multiple parcels: Define a simple way too allow multiple parcels to show the same scene. This allows for better performance and the usability of editors improve if they don't have to chunk scenes.
+* Describe the scene: From this file, the Decentraland client (and alternative clients) must be able to give some basic information about the parcels. This information may include the name that the owner wants to give to the parcel, the coordinates and the Ethereum address that owns the parcel. As Decentraland is a social experience, it's good to have some means to contact the owner of the parcel.
+* List and download assets: Allow the client to fetch all assets that are needed to render the scene. This includes 3d models, textures, sounds, and scripts.
+* Support scenes comprising multiple parcels: Define a simple way to allow multiple parcels to show the same scene. This allows for better performance. The usability of editors also improves if they don't have to chunk scenes.
 * Enable P2P Communications: Describe how to communicate with other users that are in the same location.
-* Providing information: As Decentraland is a social experience, it's good to have some means to contact the owner of the parcel.
-* Signal about the contents of the parcel: Allow land owners to specify to Decentraland clients the suitable audiences for this parcel, for example, to prevent mature content from being displayed to a younger audience. This is not going to be the only effort to policy content.
+* Signal about the contents of the parcel: Allow land owners to specify to Decentraland clients the suitable audiences for this parcel. For example, to prevent mature content from being displayed to a younger audience. This is not going to be the only effort that Decentraland carries out to police content.
 * Signal restrictions to client resources: allow a land owner to prevent users from using voice chat, flying, or restrict other features from being enabled in the parcel. Even if clients can be modified to not follow these policies, it might be desirable to provide control over the users' experience to the land owner.
 
-A JSON schema to validate land parcels, with a detailed description of each field follows:
+Below is a JSON schema to validate `scene.json` files for land parcels, with a detailed description of each field:
 
 <pre>
 {
@@ -124,6 +123,8 @@ A JSON schema to validate land parcels, with a detailed description of each fiel
   }
 }
 </pre>
+
+==Example implementation==
 
 Example of a land parcel description:
 
