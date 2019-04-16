@@ -101,7 +101,7 @@ The current implementations of Decentraland use the following algorithm to keep 
 
 * `position`: The player's position
 * `LoadedScenes`: The set of scenes that have been loaded or started loading
-* `WorldMapper`: A service that maps LAND coordinates to the most recent and valid Scene Manifest received.
+* `WorldMapper`: A service that maps LAND coordinates to the most recent and valid Scene Manifest received. It also avoids overlapping/misdeployed scenes.
 
 The algorithm itself has three steps:
 
