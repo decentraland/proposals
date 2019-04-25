@@ -6,9 +6,9 @@ Submission, discussion and review of community proposals about how to improve De
 
 The content of this repository contains the formalization of the specification for Decentraland's ecosystem, that comes from the issues submitted.
 
-* To start with, you can browse through [proposals submitted by other users](https://github.com/decentraland/proposals/issues).
-* You can [submit a new proposal](https://github.com/decentraland/proposals/issues/new).
-* You can also read about the [Decentraland Specification Proposal](dsp/0001.mediawiki) and submit a formal request for it.
+- To start with, you can browse through [proposals submitted by other users](https://github.com/decentraland/proposals/issues).
+- You can [submit a new proposal](https://github.com/decentraland/proposals/issues/new).
+- You can also read about the [Decentraland Specification Proposal](dsp/0001.mediawiki) and submit a formal request for it.
 
 ## DSP: Decentraland Specifications Proposals
 
@@ -17,16 +17,22 @@ protocols involved within Decentraland.
 
 ### Current DSPs
 
-* [DSP001](dsp/0001.mediawiki): The Decentraland Specifications Proposal Format
-* [DSP020](dsp/0020.mediawiki): Parcel Manifest Format
-* [DSP021](dsp/0021.md): Loading Parcel Content 
-* [DSP030](dsp/0030.md): Decentraland Scripting
+- Decentraland Specifications Proposals and Status
+  - [DSP001](dsp/0001.mediawiki): The Decentraland Specifications Proposal Format
+- Contracts
+  - [DSP010](dsp/dsp-0010/0010.md): LANDRegistry
+  - [DSP010](dsp/dsp-0012/0012.md): Marketplace v1
+- Fetching Resources to Render the World
+  - [DSP020](dsp/0020.mediawiki): Parcel Manifest Format
+  - [DSP021](dsp/0021.md): Loading Parcel Content
+- Scripting Scenes
+  - [DSP030](dsp/0030.md): Decentraland Scripting
+  - [DSP030](dsp/0032.md): Entities Components and Systems
 
 ### Wishlist
 
-* DSD010: LAND Contract
-* DSD011: The Terraforming Event
-* DSD030: WebRTC Signalling Server Specification
-* DSD040: Serving content over IPFS
-* DSD050: A-Minus specification
-* DSD060: UX for the in-world experience
+- DSD011: The Terraforming Event
+- DSD030: WebRTC Signalling Server Specification
+- DSD040: Serving content over IPFS
+- DSD050: A-Minus specification
+- DSD060: UX for the in-world experience
