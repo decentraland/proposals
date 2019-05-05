@@ -21,7 +21,8 @@ protocols involved within Decentraland.
   - [DSP001](dsp/0001.mediawiki): The Decentraland Specifications Proposal Format
 - Contracts
   - [DSP010](dsp/dsp-0010/0010.md): LANDRegistry
-  - [DSP010](dsp/dsp-0012/0012.md): Marketplace v1
+  - [DSP012](dsp/dsp-0012/0012.md): Marketplace v1
+  - [DSP013](dsp/dsp-0013/0013.md): Marketplace v2
 - Fetching Resources to Render the World
   - [DSP020](dsp/0020.mediawiki): Parcel Manifest Format
   - [DSP021](dsp/0021.md): Loading Parcel Content
