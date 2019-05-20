@@ -245,10 +245,6 @@ engine.addEntity(cube)
 
 The API also contains features to control animations of 3D models, sounds, UI, text, management of click events, amongst others. Check out [DSP-0033] through [DSP-0039] for a description of those APIs.
 
-## Identity and Communications
-
-// TODO: @hugo
-
 ## Supporting dApps & Tooling
 
 ### Marketplace
