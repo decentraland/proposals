@@ -114,7 +114,7 @@ Below is a JSON schema to validate `scene.json` files for land parcels, with a d
           "optional": true,
           "description": "Allow the land owner to set up a favicon to this land"
         },
-        "navmap-thumbnail": {
+        "navmapThumbnail": {
           "type": "string",
           "optional": true,
           "description": "Thumbnail that will appear in navmap's toast window"
