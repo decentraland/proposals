@@ -104,10 +104,20 @@ Below is a JSON schema to validate `scene.json` files for land parcels, with a d
           "type": "string",
           "description": "A name so other users can identify what the contents of this land should be"
         },
+        "description": {
+          "type": "string",
+          "optional": true,
+          "description": "A description that will be shown on client's nav map when the scene is selected"
+        },
         "favicon": {
           "type": "string",
           "optional": true,
           "description": "Allow the land owner to set up a favicon to this land"
+        },
+        "navmapThumbnail": {
+          "type": "string",
+          "optional": true,
+          "description": "Thumbnail that will appear in navmap's toast window"
         }
       },
       "additionalProperties": true
