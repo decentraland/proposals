@@ -1,0 +1,40 @@
+---
+DSP: nnnn
+Title: Portable Experiences Interface
+Author: World Team
+Status: Draft
+Type: Standards
+Created: 2021-01-19
+---
+
+# Portable experiences interface for the SDK
+
+The interface would be included from the SDK using the identifier
+
+```typescript
+import * as PortableExperiences from '@decentraland/PortableExperiences'
+```
+
+```typescript
+
+type PortableExperienceHandle = {
+  pid: string
+  // ???
+}
+
+export interface IPortableExperiencesController {
+  /**
+   * Creates a portable experience.
+   * @param  {???} [data] - Information to identify the PE
+   */
+  spawn(data: ???): Promise<PortableExperienceHandle>
+
+  /**
+   * Kills a portable experience.
+   * It receives the pid from a PortableExperienceHandle.
+   *
+   * Only the scene that spawned the portable experience has permission to kill it.
+   */
+  kill(pid: string): Promise<???>
+}
+```
