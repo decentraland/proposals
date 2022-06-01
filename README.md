@@ -28,12 +28,12 @@ protocols involved within Decentraland.
   - [DSP021](dsp/0021.md): Loading Parcel Content
 - Scripting Scenes
   - [DSP030](dsp/0030.md): Decentraland Scripting
-  - [DSP030](dsp/0032.md): Entities Components and Systems
+  - [DSP032](dsp/0032.md): Entities Components and Systems
+  - [DSP181](dsp/0181.md): Portable experiences
 
 ### Wishlist
 
 - DSD011: The Terraforming Event
 - DSD030: WebRTC Signalling Server Specification
 - DSD040: Serving content over IPFS
-- DSD050: A-Minus specification
 - DSD060: UX for the in-world experience
