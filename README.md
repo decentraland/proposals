@@ -1,3 +1,5 @@
+Archived repository, please refer to https://github.com/decentraland/adr
+
 # Decentraland Proposals
 
 Submission, discussion and review of community proposals about how to improve Decentraland.
